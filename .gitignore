@@ -5,6 +5,9 @@ build/*
 !build/README.md
 
 dist/*.LICENSE.txt
+dist/plotly-custom.min.js
+
+lib/index-custom.js
 
 npm-debug.log*
 *.sublime*
