@@ -9,7 +9,6 @@ var helpers = require('./helpers');
 module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
     if(!opts) opts = {};
     var hoverLayer = opts.hoverLayer;
-
     var cd = pointData.cd;
     var trace = cd[0].trace;
     var hoveron = trace.hoveron;
@@ -46,7 +45,7 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
             if(vVal >= di.span[0] && vVal <= di.span[1]) {
                 var kdePointData = Lib.extendFlat({}, pointData);
                 var vValPx = vAxis.c2p(vVal, true);
-                var kdeVal = helpers.getKdeValue(di, trace, vVal);
+                // var kdeVal = helpers.getKdeValue(di, trace, vVal);
                 var pOnPath = helpers.getPositionOnKdePath(di, trace, vValPx);
                 var paOffset = pAxis._offset;
                 var paLength = pAxis._length;
@@ -54,7 +53,7 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
                 kdePointData[pLetter + '0'] = pOnPath[0];
                 kdePointData[pLetter + '1'] = pOnPath[1];
                 kdePointData[vLetter + '0'] = kdePointData[vLetter + '1'] = vValPx;
-                kdePointData[vLetter + 'Label'] = vLetter + ': ' + Axes.hoverLabelText(vAxis, vVal, trace[vLetter + 'hoverformat']) + ', ' + cd[0].t.labels.kde + ' ' + kdeVal.toFixed(3);
+                kdePointData[vLetter + 'Label'] = '  ' + Axes.hoverLabelText(vAxis, vVal, trace[vLetter + 'hoverformat']);// + ', ' + cd[0].t.labels.kde + ' ' + kdeVal.toFixed(3);
 
                 // move the spike to the KDE point
                 var medId = 0;
