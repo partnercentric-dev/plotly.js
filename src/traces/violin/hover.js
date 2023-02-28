@@ -12,6 +12,7 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
     var cd = pointData.cd;
     var trace = cd[0].trace;
     var hoveron = trace.hoveron;
+    var hoverText = trace.hovertext;
     var hasHoveronViolins = hoveron.indexOf('violins') !== -1;
     var hasHoveronKDE = hoveron.indexOf('kde') !== -1;
     var closeData = [];
@@ -53,7 +54,7 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
                 kdePointData[pLetter + '0'] = pOnPath[0];
                 kdePointData[pLetter + '1'] = pOnPath[1];
                 kdePointData[vLetter + '0'] = kdePointData[vLetter + '1'] = vValPx;
-                kdePointData[vLetter + 'Label'] = '  ' + Axes.hoverLabelText(vAxis, vVal, trace[vLetter + 'hoverformat']);// + ', ' + cd[0].t.labels.kde + ' ' + kdeVal.toFixed(3);
+                kdePointData[vLetter + 'Label'] = hoverText + ' ' + Axes.hoverLabelText(vAxis, vVal, trace[vLetter + 'hoverformat']);// + ', ' + cd[0].t.labels.kde + ' ' + kdeVal.toFixed(3);
 
                 // move the spike to the KDE point
                 var medId = 0;
@@ -89,6 +90,9 @@ module.exports = function hoverPoints(pointData, xval, yval, hovermode, opts) {
 
     if(hoveron.indexOf('points') !== -1) {
         closePtData = boxHoverPoints.hoverOnPoints(pointData, xval, yval);
+        if(closePtData) {
+            closePtData.xLabel = hoverText + ' ' + closePtData.xLabelVal + '%';
+        }
     }
 
     // update violin line (if any)
